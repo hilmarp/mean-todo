@@ -13,6 +13,11 @@ app.configure(function () {
 	app.use(express.methodOverride()); // Simulate delete and put
 });
 
+// Define models
+var Todo = mongoose.model("Todo", {
+	text: String
+});
+
 // Listen
 app.listen(8080);
 console.log("App listening on port 8080");
