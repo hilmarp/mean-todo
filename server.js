@@ -75,6 +75,11 @@ app.delete("/api/todos/:todo_id", function (req, res) {
 	});
 });
 
+// Application
+app.get("*", function (req, res) {
+	res.sendfile("./public/index.html"); // Load the single view file
+})
+
 // Listen
 app.listen(8080);
 console.log("App listening on port 8080");
