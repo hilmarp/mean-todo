@@ -18,6 +18,43 @@ var Todo = mongoose.model("Todo", {
 	text: String
 });
 
+// Routes
+// API
+
+// Get all todos
+app.get("/api/todos", function (req, res) {
+	// Use mongoose to get all todos in the database
+	Todo.find(function (err, todos) {
+		// If there is an error, send it
+		if (err) {
+			res.send(err);
+		}
+
+		res.json(todos); // Return all todos in json format
+	});
+});
+
+// Create todo and send back all todos after creation
+app.post("/api/todos", function (req, res) {
+	// Create a todo, info comes from ajax request from angular
+	Todo.create({
+		text: req.body.text,
+		done: false
+	}, function (err, todo) {
+		if (err) {
+			res.send(err);
+		}
+		// Get and return all the todos after you create another
+		Todo.find(function (err, todos) {
+			if (err) {
+				res.send(err);
+			}
+
+			res.json(todos);
+		});
+	});
+});
+
 // Listen
 app.listen(8080);
 console.log("App listening on port 8080");
